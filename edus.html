@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSmart AI - AI Companion</title>
+    <meta name="description" content="Your intelligent education companion for adaptive learning and stress management">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4F46E5",
+                        secondary: "#10B981",
+                        accent: "#F59E0B",
+                        dark: "#1F2937",
+                        light: "#F9FAFB"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4F46E5 0%, #10B981 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <!-- Login Page (default view) -->
+    <div id="login-page" class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="gradient-bg p-6 text-center">
+                <h1 class="text-2xl font-bold text-white">EduSmart AI</h1>
+                <p class="text-white opacity-90 mt-1">AI COMPANION</p>
+            </div>
+            
+            <form id="login-form" class="p-6 space-y-4">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Gmail ID</label>
+                    <input type="email" id="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="yourname@gmail.com">
+                </div>
+                
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input type="text" id="name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="John Doe">
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="password" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="••••••••">
+                </div>
+                
+                <div>
+                    <label for="standard" class="block text-sm font-medium text-gray-700 mb-1">Study Standard</label>
+                    <select id="standard" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <option value="">Select your standard</option>
+                        <option value="highschool">High School</option>
+                        <option value="undergrad">Undergraduate</option>
+                        <option value="postgrad">Postgraduate</option>
+                        <option value="phd">PhD</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="college" class="block text-sm font-medium text-gray-700 mb-1">College/University</label>
+                    <input type="text" id="college" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="University Name">
+                </div>
+                
+                <div>
+                    <label for="stream" class="block text-sm font-medium text-gray-700 mb-1">Stream</label>
+                    <select id="stream" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <option value="">Select your stream</option>
+                        <option value="science">Science</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="arts">Arts</option>
+                        <option value="commerce">Commerce</option>
+                        <option value="medicine">Medicine</option>
+                        <option value="law">Law</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="w-full gradient-bg text-white py-2 px-4 rounded-md hover:opacity-90 transition duration-200 font-medium">Login / Register</button>
+                
+                <div class="text-center text-sm text-gray-600">
+                    By continuing, you agree to our <a href="#" class="text-primary hover:underline">Terms</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Page (hidden by default) -->
+    <div id="dashboard-page" class="hidden min-h-screen">
+        <header class="bg-white shadow-sm">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="gradient-bg text-white p-2 rounded-lg">
+                        <i class="fas fa-brain text-xl"></i>
+                    </div>
+                    <h1 class="text-xl font-bold text-gray-800">EduSmart <span class="text-primary">AI</span></h1>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="notification-btn" class="relative p-2 text-gray-600 hover:text-primary rounded-full hover:bg-gray-100">
+                        <i class="fas fa-bell"></i>
+                        <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+                    </button>
+                    <div class="flex items-center space-x-2">
+                        <img src="https://picsum.photos/40?random=100" alt="User profile" class="w-8 h-8 rounded-full">
+                        <span class="text-sm font-medium text-gray-700">John Doe</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Adaptive Timetable</h2>
+                    <div id="timetable" class="space-y-3"></div>
+                    <button class="mt-4 w-full py-2 bg-primary text-white rounded-md hover:bg-opacity-90 transition duration-200">Generate New Schedule</button>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Stress Tracking</h2>
+                    <div class="h-48 flex items-center justify-center">
+                        <canvas id="stress-chart"></canvas>
+                    </div>
+                    <button class="mt-4 w-full py-2 bg-secondary text-white rounded-md hover:bg-opacity-90 transition duration-200">Log Current Stress Level</button>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">AI Smart Planner</h2>
+                    <div id="planner-tasks" class="space-y-3"></div>
+                    <button class="mt-4 w-full py-2 bg-accent text-white rounded-md hover:bg-opacity-90 transition duration-200">Get Personalized Plan</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Recent Activities</h2>
+                    <div id="activities" class="space-y-4"></div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Performance Analytics</h2>
+                    <div class="h-64 flex items-center justify-center">
+                        <canvas id="performance-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="bg-gray-50 border-t mt-8">
+            <div class="container mx-auto px-4 py-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <div class="flex items-center space-x-2">
+                            <div class="gradient-bg text-white p-2 rounded-lg">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <span class="font-bold text-gray-800">EduSmart AI</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Your intelligent education companion</p>
+                    </div>
+                    
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-600 hover:text-primary">About</a>
+                        <a href="#" class="text-gray-600 hover:text-primary">Features</a>
+                        <a href="#" class="text-gray-600 hover:text-primary">Contact</a>
+                        <a href="#" class="text-gray-600 hover:text-primary">Privacy</a>
+                    </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-gray-200 text-center text-sm text-gray-500">
+                    &copy; 2023 EduSmart AI. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Data layer
+        const timetableData = [
+            { "day": "Monday", "subject": "Mathematics", "time": "9:00 AM - 10:30 AM", "status": "completed" },
+            { "day": "Tuesday", "subject": "Physics", "time": "10:30 AM - 12:00 PM", "status": "upcoming" },
+            { "day": "Wednesday", "subject": "Computer Science", "time": "2:00 PM - 3:30 PM", "status": "pending" },
+            { "day": "Thursday", "subject": "Literature", "time": "11:00 AM - 12:30 PM", "status": "upcoming" },
+            { "day": "Friday", "subject": "Chemistry", "time": "3:30 PM - 5:00 PM", "status": "upcoming" }
+        ];
+
+        const plannerTasks = [
+            { "task": "Complete Math Assignment", "priority": "high", "due": "Today" },
+            { "task": "Read Chapter 5 - Physics", "priority": "medium", "due": "Tomorrow" },
+            { "task": "Prepare for CS Lab", "priority": "low", "due": "Friday" }
+        ];
+
+        const activities = [
+            { "action": "Completed Math Quiz", "time": "2 hours ago", "score": "85%" },
+            { "action": "Viewed Lecture on Thermodynamics", "time": "5 hours ago", "score": null },
+            { "action": "Submitted Literature Essay", "time": "Yesterday", "score": "90%" },
+            { "action": "Joined Study Group", "time": "2 days ago", "score": null }
+        ];
+
+        // Reusable render functions
+        function renderTimetable(items) {
+            return items.map(item => `
+                <div class="flex items-start justify-between p-3 rounded-lg ${getStatusColor(item.status)}">
+                    <div>
+                        <h3 class="font-medium text-gray-800">${item.subject}</h3>
+                        <p class="text-sm text-gray-600">${item.day}, ${item.time}</p>
+                    </div>
+                    <span class="text-xs px-2 py-1 rounded-full ${getStatusBadgeColor(item.status)}">${item.status}</span>
+                </div>
+            `).join("");
+        }
+
+        function renderPlannerTasks(items) {
+            return items.map(item => `
+                <div class="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <div>
+                        <h3 class="font-medium text-gray-800">${item.task}</h3>
+                        <p class="text-sm text-gray-600">Due: ${item.due}</p>
+                    </div>
+                    <span class="text-xs px-2 py-1 rounded-full ${getPriorityColor(item.priority)}">${item.priority}</span>
+                </div>
+            `).join("");
+        }
+
+        function renderActivities(items) {
+            return items.map(item => `
+                <div class="flex items-start space-x-3">
+                    <div class="mt-1 flex-shrink-0">
+                        <div class="h-8 w-8 rounded-full bg-primary bg-opacity-10 flex items-center justify-center">
+                            <i class="fas ${item.score ? 'fa-check-circle text-green-500' : 'fa-eye text-blue-500'}"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-medium text-gray-800">${item.action}</p>
+                        <p class="text-xs text-gray-500">${item.time}${item.score ? ` • Score: ${item.score}` : ''}</p>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        // Helper functions
+        function getStatusColor(status) {
+            const colors = {
+                "completed": "bg-green-50",
+                "upcoming": "bg-blue-50",
+                "pending": "bg-yellow-50"
+            };
+            return colors[status] || "bg-gray-50";
+        }
+
+        function getStatusBadgeColor(status) {
+            const colors = {
+                "completed": "bg-green-100 text-green-800",
+                "upcoming": "bg-blue-100 text-blue-800",
+                "pending": "bg-yellow-100 text-yellow-800"
+            };
+            return colors[status] || "bg-gray-100 text-gray-800";
+        }
+
+        function getPriorityColor(priority) {
+            const colors = {
+                "high": "bg-red-100 text-red-800",
+                "medium": "bg-yellow-100 text-yellow-800",
+                "low": "bg-green-100 text-green-800"
+            };
+            return colors[priority] || "bg-gray-100 text-gray-800";
+        }
+
+        // Initialize dashboard
+        function initDashboard() {
+            document.getElementById("timetable").innerHTML = renderTimetable(timetableData);
+            document.getElementById("planner-tasks").innerHTML = renderPlannerTasks(plannerTasks);
+            document.getElementById("activities").innerHTML = renderActivities(activities);
+            
+            // Initialize charts (mock implementation)
+            const stressCtx = document.getElementById("stress-chart").getContext("2d");
+            const performanceCtx = document.getElementById("performance-chart").getContext("2d");
+            
+            // These would be replaced with actual Chart.js implementations in a real app
+            stressCtx.fillStyle = "#E5E7EB";
+            stressCtx.fillRect(0, 0, 300, 150);
+            stressCtx.fillStyle = "#4F46E5";
+            stressCtx.fillText("Stress Level Chart", 100, 75);
+            
+            performanceCtx.fillStyle = "#E5E7EB";
+            performanceCtx.fillRect(0, 0, 400, 200);
+            performanceCtx.fillStyle = "#10B981";
+            performanceCtx.fillText("Performance Analytics Chart", 120, 100);
+        }
+
+        // Form submission handler
+        document.getElementById("login-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            // In a real app, this would validate and send to server
+            document.getElementById("login-page").classList.add("hidden");
+            document.getElementById("dashboard-page").classList.remove("hidden");
+            initDashboard();
+        });
+
+        // Navigation handler for all links
+        document.addEventListener("click", function(e) {
+            const link = e.target.closest("a[href^='#']");
+            if (!link) return;
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute("href"));
+            if (target) target.scrollIntoView({ behavior: "smooth" });
+        });
+    </script>
+</body>
+</html>
